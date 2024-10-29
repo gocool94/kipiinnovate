@@ -5,6 +5,8 @@ import MainHomepage from "./components/MainHomepage";
 import MyIdeas from "./components/MyIdeas";
 import ReviewIdeas from "./components/ReviewIdeas";
 import ContactUs from "./components/ContactUs";
+import BrowseIdeas from "./components/BrowseIdeas";
+import Header from "./components/Header"; // Import the Header component
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,19 +14,21 @@ function App() {
 
   // Handle successful login
   const handleLoginSuccess = (profile) => {
-    setUserProfile(profile); // Set user profile here
+    setUserProfile(profile);
     setIsLoggedIn(true);
   };
 
   // Handle logout
   const handleLogout = () => {
-    setUserProfile(null); // Clear user profile on logout
+    setUserProfile(null);
     setIsLoggedIn(false);
   };
 
   return (
     <Router>
       <div>
+        <Header /> {/* Persistent Header component */}
+        
         <Routes>
           <Route
             path="/"
@@ -40,6 +44,7 @@ function App() {
               )
             }
           />
+          <Route path="/browse-ideas" element={<BrowseIdeas />} />
           <Route path="/my-ideas" element={<MyIdeas />} />
           <Route path="/review-ideas" element={<ReviewIdeas />} />
           <Route path="/contact-us" element={<ContactUs />} />
