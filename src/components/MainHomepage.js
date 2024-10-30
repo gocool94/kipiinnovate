@@ -24,7 +24,7 @@ const MainHomepage = ({ setIsLoggedIn, setUserProfile }) => {
           <StatusCard title="Ideas Shared" count={0} bgColor="bg-blue-100" />
           <StatusCard title="Ideas Accepted" count={0} bgColor="bg-green-100" />
           <StatusCard title="Review Pending" count={0} bgColor="bg-orange-100" />
-          <StatusCard title="Review Tired" count={0} bgColor="bg-red-100" />
+          <StatusCard title="Review Tired" count={2} bgColor="bg-red-100" />
         </div>
       </div>
 

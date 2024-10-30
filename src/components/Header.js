@@ -88,17 +88,23 @@ const Header = () => {
       </header>
 
       {/* Promotional Banner */}
-      <div className="w-full bg-gradient-to-r from-purple-500 to-blue-500 h-12 flex justify-between items-center px-4">
-        <p className="text-white font-bold">
-          Your Idea Could Be The Next Big Thing. Submit Now!
-        </p>
-        <button
-          onClick={toggleModal} // Call the toggleModal function
-          className="bg-white text-blue-500 font-bold py-2 px-4 rounded"
-        >
-          Share It Now!
-        </button>
-      </div>
+{/* Promotional Banner */}
+{/* Promotional Banner Container */}
+<div className="mt-4 mx-4">
+  <div className="w-full bg-gradient-to-r from-purple-500 to-blue-500 h-16 flex justify-between items-center p-4 rounded-lg shadow-md">
+    <p className="text-white font-bold text-lg">
+      Your Idea Could Be The Next Big Thing. Submit Now!
+    </p>
+    <button
+      onClick={toggleModal} // Call the toggleModal function
+      className="bg-white text-blue-500 font-bold py-2 px-6 rounded-full transition-transform transform hover:scale-105"
+    >
+      Share It Now!
+    </button>
+  </div>
+</div>
+
+
 
       {/* Share Update Modal */}
       {isModalOpen && <ShareUpdateModal toggleModal={toggleModal} />} {/* Render modal conditionally */}

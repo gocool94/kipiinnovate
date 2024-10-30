@@ -30,51 +30,57 @@ const MyIdeas = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">My Ideas</h2>
-      <div className="flex justify-between items-center mb-4">
-        <span className="text-lg font-semibold">
-          Beans earned: <span className="font-bold">{totalBeans}</span>
-        </span>
-      </div>
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr>
-            <th className="py-2 border-b text-left">Idea Title</th>
-            <th className="py-2 border-b text-left">Idea Category</th>
-            <th className="py-2 border-b text-left">Idea Description</th>
-            <th className="py-2 border-b text-left">Date Submitted</th>
-            <th className="py-2 border-b text-left">Status</th>
-            <th className="py-2 border-b text-left">Beans Earned</th>
-            <th className="py-2 border-b text-left">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ideas.length === 0 ? (
-            <tr>
-              <td colSpan="7" className="text-center py-4">No ideas found.</td>
+    <div className="mt-4 mx-4">
+      <div className="bg-white shadow-lg rounded-lg p-6">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">My Ideas</h2>
+        
+        <div className="flex justify-between items-center mb-4">
+          <div className="p-4 border border-yellow-400 bg-yellow-100 rounded-lg">
+            <span className="text-lg font-semibold">
+              Beans earned: <span className="font-bold">{totalBeans}</span>
+            </span>
+          </div>
+        </div>
+
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200 text-gray-700">
+              <th className="py-2 border-b text-left">Idea Title</th>
+              <th className="py-2 border-b text-left">Idea Category</th>
+              <th className="py-2 border-b text-left">Idea Description</th>
+              <th className="py-2 border-b text-left">Date Submitted</th>
+              <th className="py-2 border-b text-left">Status</th>
+              <th className="py-2 border-b text-left">Beans Earned</th>
+              <th className="py-2 border-b text-left">Action</th>
             </tr>
-          ) : (
-            ideas.map((idea) => (
-              <tr key={idea._id}>
-                <td className="border-b py-2 px-4">{idea.ideaTitle}</td>
-                <td className="border-b py-2 px-4">{idea.ideaCategory.join(", ")}</td>
-                <td className="border-b py-2 px-4">{idea.ideaDescription}</td>
-                <td className="border-b py-2 px-4">{idea.dateSubmitted}</td>
-                <td className="border-b py-2 px-4">
-                  <span className={`px-2 py-1 rounded ${getStatusClass(idea.status)}`}>
-                    {idea.status}
-                  </span>
-                </td>
-                <td className="border-b py-2 px-4">{idea.beansEarned || "N/A"}</td>
-                <td className="border-b py-2 px-4">
-                  <button className="text-blue-500 hover:underline">View</button>
-                </td>
+          </thead>
+          <tbody>
+            {ideas.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="text-center py-4">No ideas found.</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              ideas.map((idea) => (
+                <tr key={idea._id} className="hover:bg-gray-100 transition-colors">
+                  <td className="border-b py-2 px-4">{idea.ideaTitle}</td>
+                  <td className="border-b py-2 px-4">{idea.ideaCategory.join(", ")}</td>
+                  <td className="border-b py-2 px-4">{idea.ideaDescription}</td>
+                  <td className="border-b py-2 px-4">{idea.dateSubmitted}</td>
+                  <td className="border-b py-2 px-4">
+                    <span className={`px-2 py-1 rounded ${getStatusClass(idea.status)}`}>
+                      {idea.status}
+                    </span>
+                  </td>
+                  <td className="border-b py-2 px-4">{idea.beansEarned || "N/A"}</td>
+                  <td className="border-b py-2 px-4">
+                    <button className="text-blue-500 hover:underline">View</button>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
