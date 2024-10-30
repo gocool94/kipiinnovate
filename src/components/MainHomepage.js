@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import StatusCard from "./StatusCard";
 import TopSubmittersList from "./TopSubmittersList";
-import ShareUpdateModal from "./ShareUpdateModal";
+import Header from "./Header"; // Import Header component
+import innovation from "./innovation.png";
 
 const MainHomepage = ({ setIsLoggedIn, setUserProfile }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
   const logout = () => {
     setIsLoggedIn(false);
     setUserProfile(null);
@@ -14,18 +12,7 @@ const MainHomepage = ({ setIsLoggedIn, setUserProfile }) => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Banner */}
-      <div className="w-full bg-gradient-to-r from-purple-500 to-blue-500 h-12 flex justify-between items-center px-4">
-        <p className="text-white font-bold">
-          Your Idea Could Be The Next Big Thing. Submit Now!
-        </p>
-        <button
-          onClick={toggleModal}
-          className="bg-white text-blue-500 font-bold py-2 px-4 rounded"
-        >
-          Share It Now!
-        </button>
-      </div>
+      {/* Just render the Header */}
 
       {/* Idea Status */}
       <div className="container mx-auto px-4 py-6">
@@ -33,11 +20,11 @@ const MainHomepage = ({ setIsLoggedIn, setUserProfile }) => {
           Your Idea Status
         </h2>
         <div className="grid grid-cols-5 gap-4">
-          <StatusCard title="Beans Earned" count={375} bgColor="bg-yellow-100" />
-          <StatusCard title="Ideas Shared" count={20} bgColor="bg-blue-100" />
-          <StatusCard title="Ideas Accepted" count={15} bgColor="bg-green-100" />
-          <StatusCard title="Review Pending" count={3} bgColor="bg-orange-100" />
-          <StatusCard title="Review Tired" count={2} bgColor="bg-red-100" />
+          <StatusCard title="Beans Earned" count={0} bgColor="bg-yellow-100" />
+          <StatusCard title="Ideas Shared" count={0} bgColor="bg-blue-100" />
+          <StatusCard title="Ideas Accepted" count={0} bgColor="bg-green-100" />
+          <StatusCard title="Review Pending" count={0} bgColor="bg-orange-100" />
+          <StatusCard title="Review Tired" count={0} bgColor="bg-red-100" />
         </div>
       </div>
 
@@ -46,7 +33,7 @@ const MainHomepage = ({ setIsLoggedIn, setUserProfile }) => {
         <TopSubmittersList />
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <img
-            src="featured_image.png"
+            src={innovation}
             alt="Innovation"
             className="w-full h-48 object-cover"
           />
@@ -58,9 +45,6 @@ const MainHomepage = ({ setIsLoggedIn, setUserProfile }) => {
           </div>
         </div>
       </div>
-
-      {/* Share Update Modal */}
-      {isModalOpen && <ShareUpdateModal toggleModal={toggleModal} />}
     </div>
   );
 };
