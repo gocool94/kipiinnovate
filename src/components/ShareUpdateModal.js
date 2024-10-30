@@ -31,28 +31,62 @@ const ShareUpdateModal = ({ toggleModal }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    toggleModal();
+    try {
+      const response = await fetch('http://127.0.0.1:8000/ideas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log("Form submitted:", data);
+      
+      // Reset form data after submission
+      setFormData({
+        name: "",
+        email: "",
+        ideaTitle: "",
+        ideaCategory: [],
+        ideaDescription: "",
+        valueAdd: "",
+        valueAddWords: "",
+        toolsTechnologies: [],
+        contributors: "",
+        complexity: "",
+        primaryBeneficiary: [],
+        implementIdea: "",
+        googleLink: "",
+      });
+
+      toggleModal();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
     <div
       className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50"
-      onClick={toggleModal} // Close modal on clicking the backdrop
+      onClick={toggleModal}
     >
       <div
-        className="bg-white p-8 rounded-lg shadow-lg max-h-[80vh] overflow-y-auto" // Add max-height and overflow
+        className="bg-white p-8 rounded-lg shadow-lg max-h-[80vh] overflow-y-auto"
         style={{ width: "75vw", maxWidth: "1200px" }}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+        onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-3xl font-bold mb-6 text-green-700">
           Submit Your Idea
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Name */}
             <label className="text-gray-700 font-semibold">Name</label>
             <input
               type="text"
@@ -63,7 +97,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               onChange={handleChange}
             />
 
-            {/* Email */}
             <label className="text-gray-700 font-semibold">Email</label>
             <input
               type="email"
@@ -74,7 +107,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               onChange={handleChange}
             />
 
-            {/* Idea Title */}
             <label className="text-gray-700 font-semibold">Idea Title</label>
             <input
               type="text"
@@ -85,17 +117,16 @@ const ShareUpdateModal = ({ toggleModal }) => {
               onChange={handleChange}
             />
 
-            {/* Idea Category */}
             <label className="text-gray-700 font-semibold">Idea Category</label>
             <div className="grid grid-cols-1 gap-2">
               {[
                 "Accelerators, Native Apps, Blogs, POCs, POVs, Use cases etc",
-                "Best practises, Checklists Standards, Templates, Governance & Fire Stations ",
+                "Best practices, Checklists Standards, Templates, Governance & Fire Stations",
                 "Delivery - process Improvement",
-                "Industy solution - Domain Expertise & business use cases",
-                "Data science ",
+                "Industry solution - Domain Expertise & business use cases",
+                "Data science",
                 "Learning & Development",
-                "Sales Marketing ",
+                "Sales Marketing",
                 "Operations, HR, CSM, ESM, etc",
                 "Others",
               ].map((category) => (
@@ -112,7 +143,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               ))}
             </div>
 
-            {/* Idea Description */}
             <label className="text-gray-700 font-semibold">
               Idea Description
             </label>
@@ -125,7 +155,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               onChange={handleChange}
             ></textarea>
 
-            {/* Value Add */}
             <label className="text-gray-700 font-semibold">Value Add</label>
             <div className="flex space-x-4">
               {["High", "Medium", "Low"].map((level) => (
@@ -143,7 +172,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               ))}
             </div>
 
-            {/* Value Add in Words */}
             <label className="text-gray-700 font-semibold">
               Value Add in Words
             </label>
@@ -156,7 +184,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               onChange={handleChange}
             />
 
-            {/* Tools/Technologies */}
             <label className="text-gray-700 font-semibold">
               Tools/Technologies
             </label>
@@ -175,7 +202,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               ))}
             </div>
 
-            {/* Contributors */}
             <label className="text-gray-700 font-semibold">Contributors</label>
             <input
               type="text"
@@ -186,7 +212,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               onChange={handleChange}
             />
 
-            {/* Complexity */}
             <label className="text-gray-700 font-semibold">Complexity</label>
             <div className="flex space-x-4">
               {["High", "Medium", "Low"].map((level) => (
@@ -204,7 +229,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               ))}
             </div>
 
-            {/* Primary Beneficiary */}
             <label className="text-gray-700 font-semibold">
               Primary Beneficiary
             </label>
@@ -223,7 +247,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               ))}
             </div>
 
-            {/* Implement Idea */}
             <label className="text-gray-700 font-semibold">
               Implement Idea
             </label>
@@ -243,7 +266,6 @@ const ShareUpdateModal = ({ toggleModal }) => {
               ))}
             </div>
 
-            {/* Google Link */}
             <label className="text-gray-700 font-semibold">
               Google Link to Resource
             </label>
@@ -251,25 +273,25 @@ const ShareUpdateModal = ({ toggleModal }) => {
               type="url"
               name="googleLink"
               className="px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-              placeholder="Google link to any resource"
+              placeholder="Google link"
               value={formData.googleLink}
               onChange={handleChange}
             />
           </div>
 
-          <div className="flex justify-end mt-4">
+          <div className="mt-6 flex justify-end">
+            <button
+              type="submit"
+              className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
+            >
+              Submit Idea
+            </button>
             <button
               type="button"
-              className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded mr-2"
+              className="ml-4 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300"
               onClick={toggleModal}
             >
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Submit
             </button>
           </div>
         </form>

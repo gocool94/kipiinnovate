@@ -6,19 +6,17 @@ import MyIdeas from "./components/MyIdeas";
 import ReviewIdeas from "./components/ReviewIdeas";
 import ContactUs from "./components/ContactUs";
 import BrowseIdeas from "./components/BrowseIdeas";
-import Header from "./components/Header"; // Import the Header component
+import Header from "./components/Header";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
 
-  // Handle successful login
   const handleLoginSuccess = (profile) => {
     setUserProfile(profile);
     setIsLoggedIn(true);
   };
 
-  // Handle logout
   const handleLogout = () => {
     setUserProfile(null);
     setIsLoggedIn(false);
@@ -27,7 +25,8 @@ function App() {
   return (
     <Router>
       <div>
-        <Header /> {/* Persistent Header component */}
+        {/* Render Header only if the user is logged in */}
+        {isLoggedIn && <Header />}
         
         <Routes>
           <Route

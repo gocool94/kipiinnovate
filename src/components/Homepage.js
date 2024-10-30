@@ -27,8 +27,8 @@ const Homepage = ({ onLoginSuccess }) => {
       <div
         style={{
           position: "absolute",
-          bottom: "5%",
-          right: "4%",
+          bottom: "20%",
+          right: "20%",
           padding: "20px",
           backgroundColor: "rgba(255, 255, 255, 0.8)",
           borderRadius: "8px",
